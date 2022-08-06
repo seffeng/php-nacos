@@ -1,0 +1,33 @@
+{
+    "name": "seffeng/nacos",
+    "description": "PHP extension nacos",
+    "keywords": ["PHP", "laravel", "yii2", "seffeng", "nacos"],
+    "license": "MIT",
+    "homepage": "https://github.com/seffeng/php-nacos",
+    "authors": [
+        {
+            "name": "seffeng",
+            "email": "save.zxf@gmail.com",
+            "homepage": "https://github.com/seffeng"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3",
+        "guzzlehttp/guzzle": ">=6.4",
+        "monolog/monolog": ">=1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seffeng\\Nacos\\": "src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4" : {
+            "Seffeng\\Nacos\\Tests\\" : "tests/"
+        }
+    },
+    "minimum-stability": "stable"
+}
