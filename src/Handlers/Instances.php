@@ -187,6 +187,48 @@ class Instances
     }
 
     /**
+     * 注销实例
+     * @author zxf
+     * @date   2022年8月11日
+     * @throws NacosException
+     * @throws \Exception
+     * @return boolean
+     */
+    public function unregister()
+    {
+        try {
+            if (!$this->getServiceName() || !$this->getIp() || !$this->getPort()) {
+                throw new NacosException('serviceName, ip, port required.');
+            }
+            $request = $this->getNacos()->getHttpClient()->delete($this->getUriInstance(), [
+                'form_params' => [
+                    'ip' => $this->getIp(),
+                    'port' => $this->getPort(),
+                    'clusterName' => $this->getClusterName(),
+                    'namespaceId' => $this->getNamespaceId(),
+                    'serviceName' => $this->getServiceName(),
+                    'groupName' => $this->getGroupName(),
+                    'ephemeral' => $this->getEphemeral(),
+                    'ver' => $this->getNacos()->getVersion(),
+                    'username' => $this->getNacos()->getUsername(),
+                    'password' => $this->getNacos()->getPassword()
+                ]
+            ]);
+            if ($request->getStatusCode() === 200) {
+                $body = $request->getBody()->getContents();
+                if ($body === 'ok') {
+                    return true;
+                }
+                return false;
+            } else {
+                throw new NacosException('instance unregister failed.');
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * 实例详情
      * @author zxf
      * @date   2022年8月4日

@@ -38,16 +38,26 @@ class NacosInstance extends TestCase
     }
 
     /**
+     * 注销实例
+     */
+    public function testUnregister()
+    {
+        try {
+            $result = $this->getInstance()->unregister();
+            var_dump($result);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * 实例列表
-     * @author zxf
-     * @date   2022年8月11日
-     * @throws \Exception
      */
     public function testList()
     {
         try {
             $result = $this->getInstance()->list();
-            print_r($result);
+            print_r(json_decode($result, true));
         } catch (\Exception $e) {
             throw $e;
         }
