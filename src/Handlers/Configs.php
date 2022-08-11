@@ -15,19 +15,19 @@ class Configs
      * tenant
      * @var string
      */
-    private $namespaceId;
+    private $namespaceId = '';
 
     /**
      * 配置 ID
      * @var string
      */
-    private $dataId;
+    private $dataId = '';
 
     /**
      * 配置分组
      * @var string
      */
-    private $groupName;
+    private $groupName = '';
 
     /**
      * 监听数据报文。格式为 dataId^2Group^2contentMD5^2tenant^1或者dataId^2Group^2contentMD5^1。
@@ -37,13 +37,13 @@ class Configs
      * tenant：租户信息，对应 Nacos 的命名空间字段(非必填)
      * @var string
      */
-    private $listeningConfigs;
+    private $listeningConfigs = '';
 
     /**
      *  配置内容
      * @var string
      */
-    private $content;
+    private $content = '';
 
     /**
      * 长轮训等待 30s，此处填写 30000
@@ -55,25 +55,25 @@ class Configs
      * 当前页码
      * @var integer
      */
-    private $page;
+    private $page = 1;
 
     /**
      * 分页条数(默认100条,最大为500)
      * @var integer
      */
-    private $pageSize;
+    private $pageSize = 100;
 
     /**
      * 配置ID|配置项历史版本ID
      * @var integer
      */
-    private $id;
+    private $id = 0;
 
     /**
      * 配置类型
      * @var string
      */
-    private $type;
+    private $type = '';
 
     /**
      * 配置文件路径
@@ -85,7 +85,7 @@ class Configs
      * 配置文件名
      * @var string
      */
-    private $fileName;
+    private $fileName = '';
 
     /**
      * 配置文件通过命名空间ID隔离
@@ -123,7 +123,6 @@ class Configs
     {
         $this->nacos = $nacos;
         $this->setDataId($dataId)->setGroupName($groupName);
-        $this->setFileName();
     }
 
     /**
@@ -147,7 +146,7 @@ class Configs
             ]);
             if ($request->getStatusCode() === 200) {
                 $this->setContent($request->getBody()->getContents());
-                $this->getLogger()->info($this->content);
+                $this->getLogger()->info($this->getContent());
                 $this->saveFile();
                 return $this->getContent();
             } else {
@@ -208,7 +207,7 @@ class Configs
             if (!is_dir($this->getFilePath())) {
                 mkdir($this->getFilePath(), 0777, true);
             }
-            file_put_contents($filename, $this->content);
+            file_put_contents($filename, $this->getContent());
         } catch (\Exception $e) {
             throw $e;
         }
@@ -398,9 +397,9 @@ class Configs
      * @param string $fileName
      * @return static
      */
-    public function setFileName(string $fileName = null)
+    public function setFileName(string $fileName)
     {
-        !is_null($fileName) && $this->fileName = $fileName;
+        $this->fileName = $fileName;
         return $this;
     }
 
@@ -412,7 +411,7 @@ class Configs
      */
     public function getFileName()
     {
-        return is_null($this->fileName) ? $this->getDataId() : $this->fileName;
+        return $this->fileName ?: $this->getDataId();
     }
 
     /**

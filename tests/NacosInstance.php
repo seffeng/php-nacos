@@ -38,6 +38,22 @@ class NacosInstance extends TestCase
     }
 
     /**
+     * 实例列表
+     * @author zxf
+     * @date   2022年8月11日
+     * @throws \Exception
+     */
+    public function testList()
+    {
+        try {
+            $result = $this->getInstance()->list();
+            print_r($result);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * 发送实例心跳
      */
     public function testBeat()

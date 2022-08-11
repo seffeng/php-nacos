@@ -141,7 +141,7 @@ class Instances
     }
 
     /**
-     *
+     * 注册实例
      * @author zxf
      * @date   2022年8月4日
      * @throws NacosException
@@ -187,7 +187,7 @@ class Instances
     }
 
     /**
-     *
+     * 实例详情
      * @author zxf
      * @date   2022年8月4日
      * @throws NacosException
@@ -222,7 +222,7 @@ class Instances
                 $this->setInstance($request->getBody()->getContents());
                 return $this->getInstance();
             } else {
-                throw new NacosException('instance register failed.');
+                throw new NacosException('instance get failed.');
             }
         } catch (\Exception $e) {
             throw $e;
@@ -230,7 +230,7 @@ class Instances
     }
 
     /**
-     *
+     * 发送实例心跳
      * @author zxf
      * @date   2022年8月4日
      * @throws NacosException
@@ -272,6 +272,42 @@ class Instances
             }
             sleep($this->getTTL());
         } while (true);
+    }
+
+    /**
+     * 实例列表
+     * @author zxf
+     * @date   2022年8月11日
+     * @throws NacosException
+     * @throws \Exception
+     * @return mixed|NULL
+     */
+    public function list()
+    {
+        try {
+            if (!$this->getServiceName()) {
+                throw new NacosException('serviceName required.');
+            }
+            $request = $this->getNacos()->getHttpClient()->get($this->getUriInstanceList(), [
+                'query' => [
+                    'serviceName' => $this->getServiceName(),
+                    'groupName' => $this->getGroupName(),
+                    'namespaceId' => $this->getNamespaceId(),
+                    'cluster' => $this->getClusterName(),
+                    'healthyOnly' => $this->getHealthyOnly(),
+                    'ver' => $this->getNacos()->getVersion(),
+                    'username' => $this->getNacos()->getUsername(),
+                    'password' => $this->getNacos()->getPassword()
+                ]
+            ]);
+            if ($request->getStatusCode() === 200) {
+                return $request->getBody()->getContents();
+            } else {
+                throw new NacosException('instance list failed.');
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
