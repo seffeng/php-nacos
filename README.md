@@ -81,6 +81,7 @@ class NacosConfig
 | Instances | register       | 注册实例     |
 | Instances | detail         | 实例详情     |
 | Instances | beat           | 发送实例心跳 |
+| Instances | unregister     | 注销实例 |
 
 ## 项目依赖
 
