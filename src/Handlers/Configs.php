@@ -71,6 +71,7 @@ class Configs
 
     /**
      * 配置类型
+     * text, json, xml, yaml, html, properties
      * @var string
      */
     private $type = '';
@@ -110,6 +111,12 @@ class Configs
      * @var string
      */
     private $uriListenerConfig = '/nacos/v1/cs/configs/listener';
+
+    /**
+     * 历史版本
+     * @var string
+     */
+    private $uriHistoryConfig = '/nacos/v1/cs/history';
 
     /**
      *
@@ -189,6 +196,167 @@ class Configs
             }
             sleep(1);
         } while (true);
+    }
+
+    /**
+     * 删除配置
+     * @author zxf
+     * @date   2022年8月13日
+     * @throws NacosException
+     * @throws \Exception
+     * @return boolean
+     */
+    public function deleteConfig()
+    {
+        try {
+            $request = $this->getNacos()->getHttpClient()->delete($this->getUriGetConfig(), [
+                'query' => [
+                    'dataId' => $this->getDataId(),
+                    'group' => $this->getGroupName(),
+                    'tenant' => $this->getNamespaceId()
+                ]
+            ]);
+
+            if ($request->getStatusCode() === 200) {
+                $body = $request->getBody()->getContents();
+                return $body === 'true' || $body === true;
+            } else {
+                throw new NacosException('config delete failed.');
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * 发布配置
+     * @author zxf
+     * @date   2022年8月13日
+     * @param string $content
+     * @throws NacosException
+     * @throws \Exception
+     * @return boolean
+     */
+    public function pushConfig()
+    {
+        try {
+            $request = $this->getNacos()->getHttpClient()->post($this->getUriGetConfig(), [
+                'form_params' => [
+                    'dataId' => $this->getDataId(),
+                    'group' => $this->getGroupName(),
+                    'tenant' => $this->getNamespaceId(),
+                    'type' => $this->getType(),
+                    'content' => $this->getContent()
+                ]
+            ]);
+
+            if ($request->getStatusCode() === 200) {
+                $body = $request->getBody()->getContents();
+                return $body === 'true' || $body === true;
+            } else {
+                throw new NacosException('config push failed.');
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * 查询历史版本
+     * @author zxf
+     * @date   2022年8月16日
+     * @throws NacosException
+     * @throws \Exception
+     * @return string
+     */
+    public function getHistoryAccurate()
+    {
+        try {
+            $request = $this->getNacos()->getHttpClient()->get($this->getUriHistoryConfig(), [
+                'query' => [
+                    'search' => 'accurate',
+                    'dataId' => $this->getDataId(),
+                    'group' => $this->getGroupName(),
+                    'tenant' => $this->getNamespaceId(),
+                    'pageNo' => $this->getPage(),
+                    'pageSize' => $this->getPageSize()
+                ]
+            ]);
+
+            if ($request->getStatusCode() === 200) {
+                return $request->getBody()->getContents();
+            } else {
+                throw new NacosException('config history accurate failed.');
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * 查询历史版本详情
+     * @author zxf
+     * @date   2022年8月16日
+     * @throws NacosException
+     * @throws \Exception
+     * @return string
+     */
+    public function getHistoryDetail()
+    {
+        try {
+            if (!$this->getId()) {
+                throw new NacosException('id required.');
+            }
+            $request = $this->getNacos()->getHttpClient()->get($this->getUriHistoryConfig(), [
+                'query' => [
+                    'nid' => $this->getId(),
+                    'dataId' => $this->getDataId(),
+                    'group' => $this->getGroupName(),
+                    'tenant' => $this->getNamespaceId()
+                ]
+            ]);
+
+            if ($request->getStatusCode() === 200) {
+                return $request->getBody()->getContents();
+            } else {
+                throw new NacosException('config history detail failed.');
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * 查询配置上一版本信息
+     * @author zxf
+     * @date   2022年8月16日
+     * @throws NacosException
+     * @throws \Exception
+     * @return string
+     */
+    public function getHistoryPrevious()
+    {
+        try {
+            if (!$this->getId()) {
+                throw new NacosException('id required.');
+            }
+            $request = $this->getNacos()->getHttpClient()->get($this->getUriHistoryConfig() . '/previous', [
+                'query' => [
+                    'id' => $this->getId(),
+                    'dataId' => $this->getDataId(),
+                    'group' => $this->getGroupName(),
+                    'tenant' => $this->getNamespaceId()
+                ]
+            ]);
+
+            if ($request->getStatusCode() === 200) {
+                return $request->getBody()->getContents();
+            } else {
+                throw new NacosException('config history previous failed.');
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -459,6 +627,30 @@ class Configs
     public function getUriListenerConfig()
     {
         return $this->uriListenerConfig;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2022年8月16日
+     * @param string $uri
+     * @return static
+     */
+    public function setUriHistoryConfig(string $uri)
+    {
+        $this->uriHistoryConfig = $uri;
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2022年8月16日
+     * @return string
+     */
+    public function getUriHistoryConfig()
+    {
+        return $this->uriHistoryConfig;
     }
 
     /**

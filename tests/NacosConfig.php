@@ -37,6 +37,71 @@ class NacosConfig extends TestCase
         }
     }
 
+    /**
+     * 删除配置
+     */
+    public function testDelete()
+    {
+        try {
+            $conf = $this->getConfig()->deleteConfig();
+            var_dump($conf);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * 发布配置
+     */
+    public function testPush()
+    {
+        try {
+            $conf = $this->getConfig()->setContent(json_encode(['a' => 'aa01', 'b' => 'bb02', 'c' => '中文测试'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))->setType('json')->pushConfig('safsaf');
+            var_dump($conf);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * 历史版本
+     */
+    public function testHistoryAccurate()
+    {
+        try {
+            $conf = $this->getConfig()->getHistoryAccurate();
+            print_r(json_decode($conf));
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * 历史版本详情
+     */
+    public function testHistoryDetail()
+    {
+        try {
+            $conf = $this->getConfig()->setId(1)->getHistoryDetail();
+            print_r(json_decode($conf));
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * 查询配置上一版本信息
+     */
+    public function testHistoryPrevious()
+    {
+        try {
+            $conf = $this->getConfig()->setId(1)->getHistoryPrevious();
+            print_r(json_decode($conf));
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     private function getConfig()
     {
         $host = 'http://nacos.io';

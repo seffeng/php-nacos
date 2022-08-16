@@ -73,6 +73,11 @@ class NacosConfig
 | --------- | -------------- | ------------ |
 | Configs   | getConfig()    | 获取配置     |
 | Configs   | listenerConfig | 监听配置     |
+| Configs   | pushConfig     | 发布配置     |
+| Configs   | deleteConfig   | 删除配置     |
+| Configs   | getHistoryAccurate | 查询历史版本     |
+| Configs   | getHistoryDetail | 查询历史版本详情     |
+| Configs   | getHistoryPrevious | 查询配置上一版本信息     |
 | Instances | register       | 注册实例     |
 | Instances | detail         | 实例详情     |
 | Instances | beat           | 发送实例心跳 |
