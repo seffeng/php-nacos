@@ -92,10 +92,6 @@ class NacosConfig
 
 ### 备注
 
-1、仅支持配置获取和监听；
+1、更多示例请参考 tests 目录下测试文件；
 
-2、仅支持实例注册和发送心跳；
-
-3、更多示例请参考 tests 目录下测试文件；
-
-4、[更多文档：nacos.io](https://nacos.io)。
+2、[更多文档：nacos.io](https://nacos.io)。
