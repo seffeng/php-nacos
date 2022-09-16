@@ -136,25 +136,24 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月3日
+     * @param  boolean $isSave
      * @throws NacosException
      * @throws \Exception
      */
-    public function getConfig()
+    public function getConfig(bool $isSave = true)
     {
         try {
             $request = $this->getNacos()->getHttpClient()->get($this->getUriGetConfig(), [
-                'query' => [
+                'query' => array_merge([
                     'dataId' => $this->getDataId(),
                     'group' => $this->getGroupName(),
-                    'tenant' => $this->getNamespaceId(),
-                    'username' => $this->getNacos()->getUsername(),
-                    'password' => $this->getNacos()->getPassword()
-                ]
+                    'tenant' => $this->getNamespaceId()
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
             if ($request->getStatusCode() === 200) {
                 $this->setContent($request->getBody()->getContents());
                 $this->getLogger()->info($this->getContent());
-                $this->saveFile();
+                $isSave && $this->saveFile();
                 return $this->getContent();
             } else {
                 throw new NacosException('config get failed.');
@@ -179,11 +178,9 @@ class Configs
                 $this->setListeningConfigs($this->getDataId() . $this->twoEncode() . $this->getGroupName() . $this->twoEncode() . md5($this->getContent())
                                         . ($this->getNamespaceId() ? ($this->twoEncode() . $this->getNamespaceId() . $this->oneEncode()) : $this->oneEncode()));
                 $request = $this->getNacos()->setTimeout(0)->getHttpClient()->post($this->getUriListenerConfig(), [
-                    'form_params' => [
-                        'Listening-Configs' => $this->getListeningConfigs(),
-                        'username' => $this->getNacos()->getUsername(),
-                        'password' => $this->getNacos()->getPassword()
-                    ],
+                    'form_params' => array_merge([
+                        'Listening-Configs' => $this->getListeningConfigs()
+                    ], $this->getNacos()->getAuthoriseParameter()),
                     'headers' => [
                         'Long-Pulling-Timeout' => $this->getLongPullingTimeout()
                     ]
@@ -210,11 +207,11 @@ class Configs
     {
         try {
             $request = $this->getNacos()->getHttpClient()->delete($this->getUriGetConfig(), [
-                'query' => [
+                'query' => array_merge([
                     'dataId' => $this->getDataId(),
                     'group' => $this->getGroupName(),
                     'tenant' => $this->getNamespaceId()
-                ]
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
 
             if ($request->getStatusCode() === 200) {
@@ -241,13 +238,13 @@ class Configs
     {
         try {
             $request = $this->getNacos()->getHttpClient()->post($this->getUriGetConfig(), [
-                'form_params' => [
+                'form_params' => array_merge([
                     'dataId' => $this->getDataId(),
                     'group' => $this->getGroupName(),
                     'tenant' => $this->getNamespaceId(),
                     'type' => $this->getType(),
                     'content' => $this->getContent()
-                ]
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
 
             if ($request->getStatusCode() === 200) {
@@ -273,14 +270,14 @@ class Configs
     {
         try {
             $request = $this->getNacos()->getHttpClient()->get($this->getUriHistoryConfig(), [
-                'query' => [
+                'query' => array_merge([
                     'search' => 'accurate',
                     'dataId' => $this->getDataId(),
                     'group' => $this->getGroupName(),
                     'tenant' => $this->getNamespaceId(),
                     'pageNo' => $this->getPage(),
                     'pageSize' => $this->getPageSize()
-                ]
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
 
             if ($request->getStatusCode() === 200) {
@@ -308,12 +305,12 @@ class Configs
                 throw new NacosException('id required.');
             }
             $request = $this->getNacos()->getHttpClient()->get($this->getUriHistoryConfig(), [
-                'query' => [
+                'query' => array_merge([
                     'nid' => $this->getId(),
                     'dataId' => $this->getDataId(),
                     'group' => $this->getGroupName(),
                     'tenant' => $this->getNamespaceId()
-                ]
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
 
             if ($request->getStatusCode() === 200) {
@@ -341,12 +338,12 @@ class Configs
                 throw new NacosException('id required.');
             }
             $request = $this->getNacos()->getHttpClient()->get($this->getUriHistoryConfig() . '/previous', [
-                'query' => [
+                'query' => array_merge([
                     'id' => $this->getId(),
                     'dataId' => $this->getDataId(),
                     'group' => $this->getGroupName(),
                     'tenant' => $this->getNamespaceId()
-                ]
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
 
             if ($request->getStatusCode() === 200) {

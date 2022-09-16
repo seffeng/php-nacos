@@ -56,7 +56,7 @@ class NacosConfig extends TestCase
     public function testPush()
     {
         try {
-            $conf = $this->getConfig()->setContent(json_encode(['a' => 'aa01', 'b' => 'bb02', 'c' => '中文测试'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))->setType('json')->pushConfig('safsaf');
+            $conf = $this->getConfig()->setContent(json_encode(['a' => 'aa01', 'b' => 'bb02', 'c' => '中文测试'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))->setType('json')->pushConfig();
             var_dump($conf);
         } catch (\Exception $e) {
             throw $e;
@@ -104,7 +104,7 @@ class NacosConfig extends TestCase
 
     private function getConfig()
     {
-        $host = 'http://nacos.io';
+        $host = 'http://nacos-io';
         $nacos = new Nacos($host, 'nacos', 'nacos');
         $config = new Configs($nacos, 'test-01');
         return $config;

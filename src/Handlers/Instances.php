@@ -155,7 +155,7 @@ class Instances
                 throw new NacosException('serviceName, ip, port required.');
             }
             $request = $this->getNacos()->getHttpClient()->post($this->getUriInstance(), [
-                'form_params' => [
+                'form_params' => array_merge([
                     'ip' => $this->getIp(),
                     'port' => $this->getPort(),
                     'namespaceId' => $this->getNamespaceId(),
@@ -167,10 +167,8 @@ class Instances
                     'serviceName' => $this->getServiceName(),
                     'groupName' => $this->getGroupName(),
                     'ephemeral' => $this->getEphemeral(),
-                    'ver' => $this->getNacos()->getVersion(),
-                    'username' => $this->getNacos()->getUsername(),
-                    'password' => $this->getNacos()->getPassword()
-                ]
+                    'ver' => $this->getNacos()->getVersion()
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
             if ($request->getStatusCode() === 200) {
                 $body = $request->getBody()->getContents();
@@ -201,7 +199,7 @@ class Instances
                 throw new NacosException('serviceName, ip, port required.');
             }
             $request = $this->getNacos()->getHttpClient()->delete($this->getUriInstance(), [
-                'form_params' => [
+                'form_params' => array_merge([
                     'ip' => $this->getIp(),
                     'port' => $this->getPort(),
                     'clusterName' => $this->getClusterName(),
@@ -209,10 +207,8 @@ class Instances
                     'serviceName' => $this->getServiceName(),
                     'groupName' => $this->getGroupName(),
                     'ephemeral' => $this->getEphemeral(),
-                    'ver' => $this->getNacos()->getVersion(),
-                    'username' => $this->getNacos()->getUsername(),
-                    'password' => $this->getNacos()->getPassword()
-                ]
+                    'ver' => $this->getNacos()->getVersion()
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
             if ($request->getStatusCode() === 200) {
                 $body = $request->getBody()->getContents();
@@ -246,7 +242,7 @@ class Instances
                 throw new NacosException('serviceName, ip, port required.');
             }
             $request = $this->getNacos()->getHttpClient()->get($this->getUriInstance(), [
-                'query' => [
+                'query' => array_merge([
                     'ip' => $this->getIp(),
                     'port' => $this->getPort(),
                     'groupName' => $this->getGroupName(),
@@ -255,10 +251,8 @@ class Instances
                     'cluster' => $this->getClusterName(),
                     'healthyOnly' => $this->getHealthyOnly(),
                     'ephemeral' => $this->getEphemeral(),
-                    'ver' => $this->getNacos()->getVersion(),
-                    'username' => $this->getNacos()->getUsername(),
-                    'password' => $this->getNacos()->getPassword()
-                ]
+                    'ver' => $this->getNacos()->getVersion()
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
             if ($request->getStatusCode() === 200) {
                 $this->setInstance($request->getBody()->getContents());
@@ -287,7 +281,7 @@ class Instances
             $this->getLogger()->info('---InstancesBeatCount:---' . $loop . '--------');
             try {
                 $request = $this->getNacos()->getHttpClient()->put($this->getUriInstanceBeat(), [
-                    'query' => [
+                    'query' => array_merge([
                         'ip' => $this->getIp(),
                         'port' => $this->getPort(),
                         'namespaceId' => $this->getNamespaceId(),
@@ -300,10 +294,8 @@ class Instances
                         'groupName' => $this->getGroupName(),
                         'ephemeral' => $this->getEphemeral(),
                         'ver' => $this->getNacos()->getVersion(),
-                        'username' => $this->getNacos()->getUsername(),
-                        'password' => $this->getNacos()->getPassword(),
                         'beat' => $this->getBeat()
-                    ]
+                    ], $this->getNacos()->getAuthoriseParameter())
                 ]);
                 if ($request->getStatusCode() === 200) {
                     $body = $request->getBody()->getContents();
@@ -331,16 +323,14 @@ class Instances
                 throw new NacosException('serviceName required.');
             }
             $request = $this->getNacos()->getHttpClient()->get($this->getUriInstanceList(), [
-                'query' => [
+                'query' => array_merge([
                     'serviceName' => $this->getServiceName(),
                     'groupName' => $this->getGroupName(),
                     'namespaceId' => $this->getNamespaceId(),
                     'cluster' => $this->getClusterName(),
                     'healthyOnly' => $this->getHealthyOnly(),
-                    'ver' => $this->getNacos()->getVersion(),
-                    'username' => $this->getNacos()->getUsername(),
-                    'password' => $this->getNacos()->getPassword()
-                ]
+                    'ver' => $this->getNacos()->getVersion()
+                ], $this->getNacos()->getAuthoriseParameter())
             ]);
             if ($request->getStatusCode() === 200) {
                 return $request->getBody()->getContents();

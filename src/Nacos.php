@@ -64,6 +64,20 @@ class Nacos
     /**
      *
      * @author zxf
+     * @date   2022年9月16日
+     * @return array
+     */
+    public function getAuthoriseParameter()
+    {
+        return [
+            'username' => $this->getUsername(),
+            'password' => $this->getPassword()
+        ];
+    }
+
+    /**
+     *
+     * @author zxf
      * @date   2022年8月3日
      * @param string $host
      * @return static
