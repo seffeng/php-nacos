@@ -431,7 +431,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return number
+     * @return integer
      */
     public function getWeight()
     {
@@ -658,7 +658,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param int $ttl
+     * @param integer $ttl
      * @return static
      */
     public function setTTL(int $ttl)
@@ -671,7 +671,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return number
+     * @return integer
      */
     public function getTTL()
     {

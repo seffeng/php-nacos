@@ -382,7 +382,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月3日
-     * @param int $time
+     * @param integer $time
      * @return static
      */
     public function setLongPullingTimeout(int $time)
@@ -395,7 +395,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月3日
-     * @return number
+     * @return integer
      */
     public function getLongPullingTimeout()
     {
