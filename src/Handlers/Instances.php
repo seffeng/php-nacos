@@ -303,16 +303,7 @@ class Instances
                 }
             } catch (\Exception $e) {
                 $this->getLogger()->error($e->getMessage());
-                do {
-                    sleep($this->getTTL());
-                    try {
-                        $this->getLogger()->info('---InstancesBeatRegister:---' . $loop . '--------');
-                        $this->register();
-                        break;
-                    } catch (\Exception $e) {
-                        continue;
-                    }
-                } while (true);
+                throw $e;
             }
             sleep($this->getTTL());
         } while (true);
