@@ -307,11 +307,12 @@ class Instances
                     sleep($this->getTTL());
                     try {
                         $this->getLogger()->info('---InstancesBeatRegister:---' . $loop . '--------');
-                        $this->register();
-                        break;
+                        if ($this->register()) {
+                            break;
+                        }
                     } catch (\Exception $e) {
-                        continue;
                     }
+                    continue;
                 } while (true);
             }
             sleep($this->getTTL());
