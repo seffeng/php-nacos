@@ -47,25 +47,25 @@ class Configs
 
     /**
      * 长轮训等待 30s，此处填写 30000
-     * @var integer
+     * @var int
      */
     private $longPullingTimeout = 30000;
 
     /**
      * 当前页码
-     * @var integer
+     * @var int
      */
     private $page = 1;
 
     /**
      * 分页条数(默认100条,最大为500)
-     * @var integer
+     * @var int
      */
     private $pageSize = 100;
 
     /**
      * 配置ID|配置项历史版本ID
-     * @var integer
+     * @var int
      */
     private $id = 0;
 
@@ -90,7 +90,7 @@ class Configs
 
     /**
      * 配置文件通过命名空间ID隔离
-     * @var boolean
+     * @var bool
      */
     private $isSeparate = true;
 
@@ -136,7 +136,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月3日
-     * @param  boolean $isSave
+     * @param  bool $isSave
      * @throws NacosException
      * @throws \Exception
      */
@@ -182,7 +182,7 @@ class Configs
                         'Listening-Configs' => $this->getListeningConfigs()
                     ], $this->getNacos()->getAuthoriseParameter()),
                     'headers' => [
-                        'Long-Pulling-Timeout' => $this->getLongPullingTimeout()
+                        'Long-Pulling-Timeout' => (string) $this->getLongPullingTimeout()
                     ]
                 ]);
                 if ($request->getBody()->getContents()) {
@@ -201,7 +201,7 @@ class Configs
      * @date   2022年8月13日
      * @throws NacosException
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function deleteConfig()
     {
@@ -229,10 +229,9 @@ class Configs
      * 发布配置
      * @author zxf
      * @date   2022年8月13日
-     * @param string $content
      * @throws NacosException
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function pushConfig()
     {
@@ -382,7 +381,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月3日
-     * @param integer $time
+     * @param  int $time
      * @return static
      */
     public function setLongPullingTimeout(int $time)
@@ -395,7 +394,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月3日
-     * @return integer
+     * @return int
      */
     public function getLongPullingTimeout()
     {
@@ -535,7 +534,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param boolean $isSeparate
+     * @param  bool $isSeparate
      * @return static
      */
     public function setIsSeparate(bool $isSeparate = true)
@@ -548,7 +547,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return boolean
+     * @return bool
      */
     public function getIsSeparate()
     {
@@ -702,7 +701,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param integer $page
+     * @param  int $page
      * @return static
      */
     public function setPage(int $page)
@@ -715,7 +714,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return integer
+     * @return int
      */
     public function getPage()
     {
@@ -726,7 +725,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param integer $pageSize
+     * @param  int $pageSize
      * @return static
      */
     public function setPageSize(int $pageSize)
@@ -739,7 +738,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return integer
+     * @return int
      */
     public function getPageSize()
     {
@@ -750,7 +749,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param integer $page
+     * @param  int $id
      * @return static
      */
     public function setId(int $id)
@@ -763,7 +762,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -774,7 +773,7 @@ class Configs
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param string $type
+     * @param  string $type
      * @return static
      */
     public function setType(string $type)

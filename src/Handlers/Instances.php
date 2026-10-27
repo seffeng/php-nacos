@@ -18,7 +18,7 @@ class Instances
 
     /**
      * 服务实例port
-     * @var integer
+     * @var int
      */
     private $port;
 
@@ -36,13 +36,13 @@ class Instances
 
     /**
      * 是否上线
-     * @var boolean
+     * @var bool
      */
     private $enabled;
 
     /**
      * 是否健康
-     * @var boolean
+     * @var bool
      */
     private $healthy;
 
@@ -72,13 +72,13 @@ class Instances
 
     /**
      * 是否临时实例
-     * @var boolean
+     * @var bool
      */
     private $ephemeral;
 
     /**
      * 是否只返回健康实例
-     * @var boolean
+     * @var bool
      */
     private $healthyOnly = false;
 
@@ -92,7 +92,7 @@ class Instances
 
     /**
      * 心跳间隔
-     * @var integer
+     * @var int
      */
     private $ttl = 3;
 
@@ -146,7 +146,7 @@ class Instances
      * @date   2022年8月4日
      * @throws NacosException
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function register()
     {
@@ -190,7 +190,7 @@ class Instances
      * @date   2022年8月11日
      * @throws NacosException
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function unregister()
     {
@@ -230,7 +230,7 @@ class Instances
      * @date   2022年8月4日
      * @throws NacosException
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function detail()
     {
@@ -271,7 +271,7 @@ class Instances
      * @date   2022年8月4日
      * @throws NacosException
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function beat()
     {
@@ -381,7 +381,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param integer $port
+     * @param  int $port
      * @return static
      */
     public function setPort(int $port)
@@ -394,7 +394,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return integer
+     * @return int
      */
     public function getPort()
     {
@@ -442,7 +442,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return integer
+     * @return int
      */
     public function getWeight()
     {
@@ -453,7 +453,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param boolean $enabled
+     * @param  bool $enabled
      * @return static
      */
     public function setEnabled($enabled)
@@ -466,7 +466,7 @@ class Instances
      * 若注册后状态异常，尝试传字符串 'true' 试试
      * @author zxf
      * @date   2022年8月4日
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -477,7 +477,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param boolean $healthy
+     * @param  bool $healthy
      * @return static
      */
     public function setHealthy($healthy)
@@ -490,7 +490,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return boolean
+     * @return bool
      */
     public function getHealthy()
     {
@@ -501,7 +501,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param mixed $metadata
+     * @param  mixed $metadata
      * @return static
      */
     public function setMetadata($metadata)
@@ -597,7 +597,7 @@ class Instances
      * 若注册时异常，尝试传字符串 'true' 或 空字符串 ''  或 null 试试
      * @author zxf
      * @date   2022年8月4日
-     * @param boolean $ephemeral
+     * @param  bool $ephemeral
      * @return static
      */
     public function setEphemeral($ephemeral)
@@ -610,7 +610,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return string|boolean
+     * @return string|bool
      */
     public function getEphemeral()
     {
@@ -621,7 +621,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param boolean $healthyOnly
+     * @param  bool $healthyOnly
      * @return static
      */
     public function setHealthyOnly($healthyOnly)
@@ -669,7 +669,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param integer $ttl
+     * @param  int $ttl
      * @return static
      */
     public function setTTL(int $ttl)
@@ -682,7 +682,7 @@ class Instances
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return integer
+     * @return int
      */
     public function getTTL()
     {

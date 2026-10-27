@@ -43,7 +43,7 @@ class Log
 
     /**
      * 日志等级
-     * @var integer
+     * @var int
      */
     private $level;
 
@@ -121,7 +121,7 @@ class Log
      *
      * @author zxf
      * @date   2022年8月4日
-     * @param integer $level
+     * @param  int $level
      * @return static
      */
     public function setLevel(int $level)
@@ -134,7 +134,7 @@ class Log
      *
      * @author zxf
      * @date   2022年8月4日
-     * @return integer
+     * @return int
      */
     public function getLevel()
     {

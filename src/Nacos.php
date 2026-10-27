@@ -35,7 +35,7 @@ class Nacos
 
     /**
      *
-     * @var integer
+     * @var int
      */
     private $timeout;
 
@@ -151,7 +151,7 @@ class Nacos
      *
      * @author zxf
      * @date   2022年8月3日
-     * @param integer $timeout
+     * @param  int $timeout
      * @return static
      */
     public function setTimeout(int $timeout)
@@ -164,7 +164,7 @@ class Nacos
      *
      * @author zxf
      * @date   2022年8月3日
-     * @return integer
+     * @return int
      */
     public function getTimeout()
     {
